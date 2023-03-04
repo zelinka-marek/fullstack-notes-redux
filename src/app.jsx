@@ -1,15 +1,5 @@
 import { createStore } from "redux";
-
-function noteReducer(state = [], action) {
-  switch (action.type) {
-    case "ADD_NOTE": {
-      return state.concat(action.payload);
-    }
-    default: {
-      return state;
-    }
-  }
-}
+import { noteReducer } from "./reducers/note";
 
 const store = createStore(noteReducer);
 
@@ -27,7 +17,7 @@ const notes = [
 ];
 
 for (const note of notes) {
-  store.dispatch({ type: "ADD_NOTE", payload: note });
+  store.dispatch({ type: "ADD_NOTE", payload: { note } });
 }
 
 export function App() {
