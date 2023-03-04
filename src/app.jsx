@@ -1,33 +1,46 @@
-import { createStore } from "redux";
-import { noteReducer } from "./reducers/note";
-
-const store = createStore(noteReducer);
-
-const notes = [
-  {
-    content: "The app state is in redux store",
-    important: false,
-    id: 1,
-  },
-  {
-    content: "state changes are made with actions",
-    important: false,
-    id: 2,
-  },
-];
-
-for (const note of notes) {
-  store.dispatch({ type: "ADD_NOTE", payload: { note } });
+function generateId() {
+  return Number((Math.random() * 1_000_000).toFixed(0));
 }
 
-export function App() {
+export function App(props) {
+  const { store } = props;
+
+  function addNote(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const note = {
+      content: formData.get("note"),
+      id: generateId(),
+    };
+
+    store.dispatch({ type: "ADD_NOTE", payload: { note } });
+
+    form.reset();
+    form.elements.note.focus();
+  }
+
+  function toggleImportance(id) {
+    store.dispatch({ type: "TOGGLE_IMPORTANCE", payload: { id } });
+  }
+
   return (
     <div>
       <h1>Notes</h1>
+      <h2>New Note</h2>
+      <form onSubmit={addNote}>
+        <input type="text" name="note" required aria-label="Note" />
+        <button type="submit">Save</button>
+      </form>
       <ul>
         {store.getState().map((note) => (
           <li key={note.id}>
-            {note.content} {note.important && <strong>important</strong>}
+            {note.content}{" "}
+            <button type="button" onClick={() => toggleImportance(note.id)}>
+              {note.important ? "make not important" : "make important"}
+            </button>
           </li>
         ))}
       </ul>
