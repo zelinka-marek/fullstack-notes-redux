@@ -10,17 +10,14 @@ describe("noteReducer", () => {
     const action = {
       type: "ADD_NOTE",
       payload: {
-        note: {
-          content: "the app state is in redux store",
-          important: true,
-          id: 1,
-        },
+        content: "the app state is in redux store",
+        important: true,
       },
     };
 
     const result = noteReducer(state, action);
     expect(result).toHaveLength(1);
-    expect(result).toContainEqual(action.payload.note);
+    expect(result[0].content).toBe(action.payload.content);
   });
 
   it("should default new note important property to false", () => {
@@ -30,18 +27,12 @@ describe("noteReducer", () => {
     const action = {
       type: "ADD_NOTE",
       payload: {
-        note: {
-          content: "this note is not important",
-          id: 1,
-        },
+        content: "this note is not important",
       },
     };
 
     const newState = noteReducer(state, action);
-    expect(newState).toContainEqual({
-      ...action.payload.note,
-      important: false,
-    });
+    expect(newState[0].important).toBe(false);
   });
 
   it("should update important propery with action TOGGLE_IMPORTANCE", () => {

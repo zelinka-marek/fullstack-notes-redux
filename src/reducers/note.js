@@ -1,11 +1,16 @@
+function generateId() {
+  return Number((Math.random() * 1_000_000).toFixed(0));
+}
+
 export function noteReducer(state = [], action) {
   switch (action.type) {
     case "ADD_NOTE": {
-      const { note } = action.payload;
+      const { content, important } = action.payload;
 
       const newNote = {
-        important: false,
-        ...note,
+        id: generateId(),
+        content,
+        important: important ?? false,
       };
 
       return state.concat(newNote);
@@ -22,4 +27,21 @@ export function noteReducer(state = [], action) {
       return state;
     }
   }
+}
+
+export function createNote({ content, important }) {
+  return {
+    type: "ADD_NOTE",
+    payload: {
+      content,
+      important,
+    },
+  };
+}
+
+export function toggleNoteImportance(id) {
+  return {
+    type: "TOGGLE_IMPORTANCE",
+    payload: { id },
+  };
 }

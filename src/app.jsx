@@ -1,6 +1,4 @@
-function generateId() {
-  return Number((Math.random() * 1_000_000).toFixed(0));
-}
+import { createNote, toggleNoteImportance } from "./reducers/note";
 
 export function App(props) {
   const { store } = props;
@@ -11,19 +9,14 @@ export function App(props) {
     const form = event.target;
     const formData = new FormData(form);
 
-    const note = {
-      content: formData.get("note"),
-      id: generateId(),
-    };
-
-    store.dispatch({ type: "ADD_NOTE", payload: { note } });
+    store.dispatch(createNote({ content: formData.get("note") }));
 
     form.reset();
     form.elements.note.focus();
   }
 
   function toggleImportance(id) {
-    store.dispatch({ type: "TOGGLE_IMPORTANCE", payload: { id } });
+    store.dispatch(toggleNoteImportance(id));
   }
 
   return (
