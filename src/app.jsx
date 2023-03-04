@@ -1,7 +1,9 @@
+import { useDispatch, useSelector } from "react-redux";
 import { createNote, toggleNoteImportance } from "./reducers/note";
 
-export function App(props) {
-  const { store } = props;
+export function App() {
+  const dispatch = useDispatch();
+  const notes = useSelector((state) => state);
 
   function addNote(event) {
     event.preventDefault();
@@ -9,14 +11,14 @@ export function App(props) {
     const form = event.target;
     const formData = new FormData(form);
 
-    store.dispatch(createNote({ content: formData.get("note") }));
+    dispatch(createNote({ content: formData.get("note") }));
 
     form.reset();
     form.elements.note.focus();
   }
 
   function toggleImportance(id) {
-    store.dispatch(toggleNoteImportance(id));
+    dispatch(toggleNoteImportance(id));
   }
 
   return (
@@ -28,7 +30,7 @@ export function App(props) {
         <button type="submit">Save</button>
       </form>
       <ul>
-        {store.getState().map((note) => (
+        {notes.map((note) => (
           <li key={note.id}>
             {note.content}{" "}
             <button type="button" onClick={() => toggleImportance(note.id)}>
