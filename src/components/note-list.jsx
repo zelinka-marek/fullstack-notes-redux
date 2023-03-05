@@ -19,14 +19,14 @@ export function NoteList(props) {
 
   const dispatch = useDispatch();
 
-  function toggleImportance(id) {
-    dispatch(toggleNoteImportance(id));
-  }
-
   return (
     <ul>
       {notes.map((note) => (
-        <NoteItem key={note.id} note={note} onToggle={toggleImportance} />
+        <NoteItem
+          key={note.id}
+          note={note}
+          onToggle={(id) => dispatch(toggleNoteImportance({ id }))}
+        />
       ))}
     </ul>
   );

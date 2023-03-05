@@ -3,12 +3,12 @@ import { describe, expect, it } from "vitest";
 import { noteReducer } from "./note";
 
 describe("noteReducer", () => {
-  it("should return new state with action ADD_NOTE", () => {
+  it("should return new state with action notes/createNote", () => {
     const state = [];
     deepFreeze(state);
 
     const action = {
-      type: "ADD_NOTE",
+      type: "notes/createNote",
       payload: {
         content: "the app state is in redux store",
         important: true,
@@ -25,7 +25,7 @@ describe("noteReducer", () => {
     deepFreeze(state);
 
     const action = {
-      type: "ADD_NOTE",
+      type: "notes/createNote",
       payload: {
         content: "this note is not important",
       },
@@ -35,7 +35,7 @@ describe("noteReducer", () => {
     expect(newState[0].important).toBe(false);
   });
 
-  it("should update important propery with action TOGGLE_IMPORTANCE", () => {
+  it("should update important propery with action notes/toggleNoteImportance", () => {
     const state = [
       {
         content: "The app state is in redux store",
@@ -51,7 +51,7 @@ describe("noteReducer", () => {
     deepFreeze(state);
 
     const action = {
-      type: "TOGGLE_IMPORTANCE",
+      type: "notes/toggleNoteImportance",
       payload: { id: 2 },
     };
 
