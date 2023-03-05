@@ -4,7 +4,7 @@ import { NewNote } from "./components/new-note";
 import { NoteList } from "./components/note-list";
 import { VisibilityFilter } from "./components/visibility-filter";
 import { setFilter } from "./reducers/filter";
-import { appendNote, createNote, setNotes } from "./reducers/note";
+import { createNote, setNotes } from "./reducers/note";
 import { getNotes } from "./services/notes";
 
 export function App() {
