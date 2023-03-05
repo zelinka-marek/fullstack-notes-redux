@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 const filters = {
   all: "All",
   important: "Important",
-  nonimportant: "Not Important",
+  notimportant: "Not Important",
 };
 
 export function VisibilityFilter(props) {
