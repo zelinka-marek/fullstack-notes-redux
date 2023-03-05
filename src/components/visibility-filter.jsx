@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setFilter } from "../reducers/filter";
+import { useSelector } from "react-redux";
 
 const filters = {
   all: "All",
@@ -7,8 +6,9 @@ const filters = {
   nonimportant: "Not Important",
 };
 
-export function VisibilityFilter() {
-  const dispatch = useDispatch();
+export function VisibilityFilter(props) {
+  const { onChange } = props;
+
   const currentFilter = useSelector(({ filter }) => filter);
 
   return (
@@ -21,7 +21,7 @@ export function VisibilityFilter() {
             name="filter"
             checked={filter === currentFilter}
             value={filter}
-            onChange={({ target }) => dispatch(setFilter(target.value))}
+            onChange={({ target }) => onChange(target.value)}
           />
         </label>
       ))}
