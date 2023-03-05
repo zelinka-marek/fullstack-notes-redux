@@ -6,8 +6,9 @@ export function NewNote(props) {
 
     const form = event.target;
     const formData = new FormData(form);
+    const content = formData.get("note");
 
-    onSubmit({ content: formData.get("note") });
+    onSubmit(content);
 
     form.reset();
     form.elements.note.focus();

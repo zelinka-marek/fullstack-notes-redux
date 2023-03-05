@@ -7,3 +7,9 @@ export async function getNotes() {
 
   return response.data;
 }
+
+export async function createNote(content) {
+  const response = await axios.post(baseUrl, { content, important: false });
+
+  return response.data;
+}

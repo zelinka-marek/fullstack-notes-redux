@@ -25,7 +25,7 @@ export function NoteList(props) {
         <NoteItem
           key={note.id}
           note={note}
-          onToggle={(id) => dispatch(toggleNoteImportance({ id }))}
+          onToggle={(id) => dispatch(toggleNoteImportance(id))}
         />
       ))}
     </ul>

@@ -8,31 +8,17 @@ describe("noteReducer", () => {
     deepFreeze(state);
 
     const action = {
-      type: "notes/createNote",
+      type: "notes/addNote",
       payload: {
         content: "the app state is in redux store",
         important: true,
+        id: 1,
       },
     };
 
     const result = noteReducer(state, action);
     expect(result).toHaveLength(1);
-    expect(result[0].content).toBe(action.payload.content);
-  });
-
-  it("should default new note important property to false", () => {
-    const state = [];
-    deepFreeze(state);
-
-    const action = {
-      type: "notes/createNote",
-      payload: {
-        content: "this note is not important",
-      },
-    };
-
-    const newState = noteReducer(state, action);
-    expect(newState[0].important).toBe(false);
+    expect(result).toContainEqual(action.payload);
   });
 
   it("should update important propery with action notes/toggleNoteImportance", () => {
@@ -52,12 +38,11 @@ describe("noteReducer", () => {
 
     const action = {
       type: "notes/toggleNoteImportance",
-      payload: { id: 2 },
+      payload: 2,
     };
 
     const newState = noteReducer(state, action);
     expect(newState).toHaveLength(2);
-    expect(newState).toContainEqual(state[0]);
     expect(newState).toContainEqual({
       ...state[1],
       important: true,

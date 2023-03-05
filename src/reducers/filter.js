@@ -8,13 +8,11 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setFilter(_state, action) {
-      const { filter } = action.payload;
-
-      if (!validFilters.includes(filter)) {
+      if (!validFilters.includes(action.payload)) {
         return initialState;
       }
 
-      return filter;
+      return action.payload;
     },
   },
 });

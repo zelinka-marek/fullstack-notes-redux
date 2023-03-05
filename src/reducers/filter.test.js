@@ -12,13 +12,11 @@ describe("filterReducer", () => {
     for (const filter of validFilters) {
       const action = {
         type: "filter/setFilter",
-        payload: {
-          filter,
-        },
+        payload: filter,
       };
 
       const newState = filterReducer(state, action);
-      expect(newState).toBe(action.payload.filter);
+      expect(newState).toBe(action.payload);
     }
   });
 
@@ -28,9 +26,7 @@ describe("filterReducer", () => {
 
     const action = {
       type: "filter/setFilter",
-      payload: {
-        filter: "favorite",
-      },
+      payload: "favorite",
     };
 
     const newState = filterReducer(state, action);
