@@ -13,3 +13,9 @@ export async function createNote(content) {
 
   return response.data;
 }
+
+export async function updateNote(id, data) {
+  const response = await axios.put(`${baseUrl}/${id}`, data);
+
+  return response.data;
+}

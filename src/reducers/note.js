@@ -7,9 +7,10 @@ const noteSlice = createSlice({
     addNote(state, action) {
       state.push(action.payload);
     },
-    toggleNoteImportance(state, action) {
-      const note = state.find((note) => note.id === action.payload);
-      note.important = !note.important;
+    setNote(state, action) {
+      return state.map((note) =>
+        note.id === action.payload.id ? action.payload : note
+      );
     },
     setNotes(_state, action) {
       return action.payload;
@@ -20,4 +21,4 @@ const noteSlice = createSlice({
 const { reducer } = noteSlice;
 export { reducer as noteReducer };
 
-export const { addNote, toggleNoteImportance, setNotes } = noteSlice.actions;
+export const { addNote, setNote, setNotes } = noteSlice.actions;

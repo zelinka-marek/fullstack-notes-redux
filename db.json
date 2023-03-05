@@ -12,13 +12,18 @@
     },
     {
       "content": "asdasd",
-      "important": false,
+      "important": true,
       "id": 3
     },
     {
       "content": "asda",
       "important": false,
       "id": 4
+    },
+    {
+      "content": "asf",
+      "important": true,
+      "id": 5
     }
   ]
 }
