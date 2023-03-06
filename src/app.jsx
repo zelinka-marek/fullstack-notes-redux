@@ -4,8 +4,7 @@ import { NewNote } from "./components/new-note";
 import { NoteList } from "./components/note-list";
 import { VisibilityFilter } from "./components/visibility-filter";
 import { setFilter } from "./reducers/filter";
-import { addNote, setNotes } from "./reducers/note";
-import { createNote, getNotes } from "./services/notes";
+import { addNewNote, initializeNotes } from "./reducers/note";
 
 export function App() {
   const dispatch = useDispatch();
@@ -21,28 +20,16 @@ export function App() {
   });
 
   useEffect(() => {
-    getNotes().then((notes) => {
-      dispatch(setNotes(notes));
-    });
+    dispatch(initializeNotes());
   }, [dispatch]);
-
-  const newNote = async (content) => {
-    const note = await createNote(content);
-
-    dispatch(addNote(note));
-  };
-
-  const updateFilter = (filter) => {
-    dispatch(setFilter(filter));
-  };
 
   return (
     <div>
       <h1>Notes</h1>
       <h2>New Note</h2>
-      <NewNote onSubmit={newNote} />
+      <NewNote onSubmit={(content) => dispatch(addNewNote(content))} />
       <div style={{ marginTop: 16 }}>
-        <VisibilityFilter onChange={updateFilter} />
+        <VisibilityFilter onChange={(filter) => dispatch(setFilter(filter))} />
         <NoteList notes={notes} />
       </div>
     </div>

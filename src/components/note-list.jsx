@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setNote } from "../reducers/note";
-import { updateNote } from "../services/notes";
+import { toggleNoteImportance } from "../reducers/note";
 
 function NoteItem(props) {
   const { note, onToggle } = props;
@@ -20,18 +19,14 @@ export function NoteList(props) {
 
   const dispatch = useDispatch();
 
-  const toggleImportance = async (id) => {
-    const note = notes.find((note) => note.id === id);
-    const noteUpdates = { ...note, important: !note.important };
-    const updatedNote = await updateNote(id, noteUpdates);
-
-    dispatch(setNote(updatedNote));
-  };
-
   return (
     <ul>
       {notes.map((note) => (
-        <NoteItem key={note.id} note={note} onToggle={toggleImportance} />
+        <NoteItem
+          key={note.id}
+          note={note}
+          onToggle={() => dispatch(toggleNoteImportance(id))}
+        />
       ))}
     </ul>
   );
